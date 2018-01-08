@@ -1,34 +1,36 @@
 import TalkService from './common/talk.service'
 import { render } from './layout/index'
-import { render as renderSpeakers } from './speakers/list/index'
-import { render as renderSessions } from './sessions/list/index'
-import { render as renderOneSpeaker } from './speakers/item/index'
-import { render as renderOneSession } from './sessions/item/index'
+import SpeakerList from './speakers/list/index'
+import SessionList from './sessions/list/index'
+import SpeakerOne from './speakers/item/index'
+import SessionOne from './sessions/item/index'
 
-console.log("--- debut index.js")
+console.log("--- debut main")
 
 talkService = new TalkService()
+speakerList = new SpeakerList(talkService)
+sessionList = new SessionList(talkService)
+speakerOne = new SpeakerOne(talkService)
+sessionOne = new SessionOne(talkService)
 
 var router = () => {
 
     if (location.hash == '#speakers-list') {
         render()
-        renderSpeakers(talkService, "main-view")
+        speakerList.renderSpeakers("main-view")
     } else if (location.hash == '#sessions-list') {
         render()
-        renderSessions(talkService, "main-view")
+        sessionList.renderSessions("main-view")
     } else if (location.hash.includes('#speakers-list?id=')) {
         let params = new URLSearchParams(location.hash)
         let idSpeaker = params.get("#speakers-list?id")
-        console.log("mon param : " + idSpeaker)
         render()
-        renderOneSpeaker(talkService, "main-view", idSpeaker)
+        speakerOne.renderOneSpeaker("main-view", idSpeaker)
     } else if (location.hash.includes('#sessions-list?id=')) {
         let params = new URLSearchParams(location.hash)
         let idSession = params.get("#sessions-list?id")
-        console.log("mon param : " + idSession)
         render()
-        renderOneSession(talkService, "main-view", idSession)
+        sessionOne.renderOneSession("main-view", idSession)
     } else {
         render()
     }
@@ -40,4 +42,4 @@ window.addEventListener('load', () => {
     router();
 });
 
-console.log("fin index.js ---")
+console.log("fin main ---")
