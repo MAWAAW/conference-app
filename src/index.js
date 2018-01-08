@@ -1,18 +1,43 @@
 import TalkService from './common/talk.service'
 import { render } from './layout/index'
-import { render as renderById } from './speakers/list/index'
+import { render as renderSpeakers } from './speakers/list/index'
+import { render as renderSessions } from './sessions/list/index'
+import { render as renderOneSpeaker } from './speakers/item/index'
+import { render as renderOneSession } from './sessions/item/index'
 
+console.log("--- debut index.js")
 
-console.log("debut index.js")
+talkService = new TalkService()
 
-/*let talkService = new TalkService()
+var router = () => {
 
-talkService.findAllSpeakers()
-    .then(resp => resp.json())
-    .then(speakers => speakers.forEach(speaker => console.log(speaker.firstname)))
-*/
-render()
+    if (location.hash == '#speakers-list') {
+        render()
+        renderSpeakers(talkService, "main-view")
+    } else if (location.hash == '#sessions-list') {
+        render()
+        renderSessions(talkService, "main-view")
+    } else if (location.hash.includes('#speakers-list?id=')) {
+        let params = new URLSearchParams(location.hash)
+        let idSpeaker = params.get("#speakers-list?id")
+        console.log("mon param : " + idSpeaker)
+        render()
+        renderOneSpeaker(talkService, "main-view", idSpeaker)
+    } else if (location.hash.includes('#sessions-list?id=')) {
+        let params = new URLSearchParams(location.hash)
+        let idSession = params.get("#sessions-list?id")
+        console.log("mon param : " + idSession)
+        render()
+        renderOneSession(talkService, "main-view", idSession)
+    } else {
+        render()
+    }
+}
+window.addEventListener('load', () => {
+    window.onhashchange = () => {
+        router();
+    };
+    router();
+});
 
-renderById("main-view")
-
-console.log("fin index.js")
+console.log("fin index.js ---")
