@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dist": "webpack",
-    "dev": "concurrently --kill-others \"npm run start\" \"npm run jsonserver\"",
-    "start": "webpack-dev-server",
+    "start": "concurrently --kill-others \"npm run dev\" \"npm run jsonserver\"",
+    "dev": "webpack-dev-server",
     "jsonserver": "json-server --watch db.json"
   },
   "repository": {
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/MAWAAW/conference-app#readme",
   "devDependencies": {
     "concurrently": "^3.5.1",
+    "html-loader": "^0.5.4",
     "html-webpack-plugin": "^2.30.1",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
