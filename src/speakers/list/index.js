@@ -1,10 +1,9 @@
-import TalkService from '../../common/talk.service'
-
 export default class SpeakerList {
     constructor(talkService) {
         this.talkService = talkService
     }
     render(idView) {
+        let template = ""
         this.talkService
             .findAllSpeakers()
             .then(resp => resp.json())

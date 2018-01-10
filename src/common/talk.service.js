@@ -1,4 +1,4 @@
-export default class TalkService {
+export class TalkService {
 
     findAllSpeakers() {
         return fetch('http://localhost:3000/speakers', {

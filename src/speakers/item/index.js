@@ -1,16 +1,16 @@
-import TalkService from '../../common/talk.service'
-
-export class OneSpeaker {
+export default class OneSpeaker {
     constructor(talkService) {
         this.talkService = talkService
     }
     render(idView, idSpeaker) {
-        talkService
+        let template = ""
+        this.talkService
             .findSpeakerById(idSpeaker)
             .then(resp => resp.json())
-            .then(speaker => document.getElementById(idView).innerHTML +=
-                '<p>' + speaker[0].firstname + ' ' + speaker[0].lastname + '</p>' +
-                '<img src="../images/' + speaker[0].image + '">' + speaker[0].socials[0].link
-            )
+            .then(speaker => {
+                template = '<p>' + speaker[0].firstname + ' ' + speaker[0].lastname + '</p>' +
+                    '<img src="../images/' + speaker[0].image + '">' + speaker[0].socials[0].link;
+                document.getElementById(idView).innerHTML = template
+            })
     }
 }

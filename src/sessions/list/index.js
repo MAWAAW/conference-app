@@ -1,6 +1,3 @@
-import TalkService from '../../common/talk.service'
-
-
 export default class SessionList {
     constructor(talkService) {
         this.talkService = talkService

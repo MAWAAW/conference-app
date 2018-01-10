@@ -1,6 +1,4 @@
-import TalkService from '../../common/talk.service'
-
-export class OneSession {
+export default class OneSession {
     constructor(talkService) {
         this.talkService = talkService
     }
@@ -8,6 +6,9 @@ export class OneSession {
         this.talkService
             .findSessionById(idSession)
             .then(resp => resp.json())
-            .then(session => document.getElementById(idView).innerHTML += '<p>' + session[0].title + '</p>')
+            .then(session => {
+                template = '<p>' + session[0].title + '</p>';
+                document.getElementById(idView).innerHTML = template
+            })
     }
 }
